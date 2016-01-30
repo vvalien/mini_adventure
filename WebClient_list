@@ -1,0 +1,6 @@
+# Silly way to check for triggers, powershell can be such a pain in the ass!
+
+# Can also list all, we use inactive tho
+sc.exe query type= service state= inactive | select-string -pattern "SERVICE_NAME" > output_file
+$orfile="output_file"
+(Get-Content $orfile) | Foreach-Object { $_ -replace 'SERVICE_NAME:', 'sc.exe qtriggerinfo' } > checkme
